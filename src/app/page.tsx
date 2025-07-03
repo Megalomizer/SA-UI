@@ -21,8 +21,8 @@ export default function Home() {
         const url: string = `${diagramUrl}diagram/generate`;
 
         let definitionValue = userDefinitionRef.current?.value;
-        if (definitionValue == null) {
-            definitionValue = "";
+        if (definitionValue == null || definitionValue === "") {
+            definitionValue = "None";
         }
 
         fetch(
@@ -31,7 +31,10 @@ export default function Home() {
                 method: "POST",
                 body: JSON.stringify({
                     definition: definitionValue,
-                })
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                }
             }
         ).then(res => res.json()
             .then((data) => {
