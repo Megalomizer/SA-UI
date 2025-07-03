@@ -10,28 +10,60 @@ export default function Home() {
     const [diagramUrl, setDiagramUrl] = useState<string>(standardUrl);
     const [enteredUrl, setEnteredUrl] = useState<string>(standardUrl);
     const inputRef = useRef<HTMLInputElement>(null);
+    const userDefinitionRef = useRef<HTMLInputElement>(null);
 
     const [inputError, setInputError] = useState<boolean>();
     const [successUrlChange, setSuccessUrlChange] = useState<boolean>();
     const [standardUrlActive, setStandardUrlActive] = useState<boolean>();
+    const [canGenerate, setCanGenerate] = useState<boolean>(false);
 
     function getImage(retry: boolean = false) {
         const url: string = `${diagramUrl}diagram/generate`;
-        fetch(url)
-            .then((response) => response.json()
-                .then((data) => {
-                    setImg(data.image_url);
+
+        let definitionValue = userDefinitionRef.current?.value;
+        if (definitionValue == null) {
+            definitionValue = "";
+        }
+
+        fetch(
+            url,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    definition: definitionValue,
                 })
-            ).catch((error) => {
-                console.error(error);
-                if (!retry) {
-                    setDiagramUrl(standardUrl);
-                    setStandardUrlActive(true);
-                    setInputError(false);
-                    setSuccessUrlChange(false);
-                    getImage(retry);
-                }
+            }
+        ).then(res => res.json()
+            .then((data) => {
+                setImg(data.image_url);
             })
+        ).catch((err) => {
+            console.error(err);
+            if (!retry) {
+                setDiagramUrl(standardUrl);
+                setStandardUrlActive(true);
+                setInputError(false);
+                setSuccessUrlChange(false);
+                getImage(true);
+            }
+        })
+
+
+        // fetch(url)
+        //     .then((response) => response.json()
+        //         .then((data) => {
+        //             setImg(data.image_url);
+        //         })
+        //     ).catch((error) => {
+        //         console.error(error);
+        //         if (!retry) {
+        //             setDiagramUrl(standardUrl);
+        //             setStandardUrlActive(true);
+        //             setInputError(false);
+        //             setSuccessUrlChange(false);
+        //             getImage(retry);
+        //         }
+        //     })
     }
 
     function checkNewUrl(url: string) {
@@ -75,12 +107,20 @@ export default function Home() {
                             Generate/Show Diagrams
                         </h2>
                     </div>
-                    <div className="d-flex flex-row justify-content-evenly my-3">
-                        <button type="button"
-                                className="btn btn-primary w-75"
-                                onClick={() => getImage()}>
-                            Generate Diagram
-                        </button>
+                    <div className="d-flex flex-column justify-content-evenly my-3">
+                        <div className="">
+                            <label className="col-form-label mt-4">
+                                Description of user desires
+                            </label>
+                            <input type="text" className={`form-control`} id="descriptionForm" placeholder="Enter your wishes regarding the diagram..." ref={userDefinitionRef} data-np-intersection-state="visible" />
+                        </div>
+                        <div className="d-flex flex-row justify-content-evenly my-3">
+                            <button type="button"
+                                    className={`btn btn-primary w-75`}
+                                    onClick={() => getImage()}>
+                                Generate Diagram
+                            </button>
+                        </div>
                     </div>
                     {img && (
                         <>
