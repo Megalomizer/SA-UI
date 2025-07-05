@@ -1,36 +1,15 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-## Getting Started
-
-First, run the development server:
+## Opzetten Frontend
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Werking van PoC
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Heb de 2 Diagram Engines draaiende via Docker
+2. Door een beschrijving in te vullen en vervolgens een diagram te genereren wordt de beschrijving in de diagram geplaatst
+3. De URL kan aan de rechter kant veranderd worden naar de url om de 2e Diagram engine te bereiken. Dit is `http://localhost:7000/`
+4. Door nogmaals een diagram te genereren wordt een andere diagram gegenereerd ten opzichte van de 1e Diagram engine. Hiermee is het verschil te zien van welke actief is.
+5. Door een url in te voeren die niet doorlinkt naar een diagram engine en vervolgens een diagram te genereren, wordt er een foutmelding gegeven en de url terug gezet naar de standaard diagram engine op localhost:8000

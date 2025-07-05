@@ -50,23 +50,6 @@ export default function Home() {
                 getImage(true);
             }
         })
-
-
-        // fetch(url)
-        //     .then((response) => response.json()
-        //         .then((data) => {
-        //             setImg(data.image_url);
-        //         })
-        //     ).catch((error) => {
-        //         console.error(error);
-        //         if (!retry) {
-        //             setDiagramUrl(standardUrl);
-        //             setStandardUrlActive(true);
-        //             setInputError(false);
-        //             setSuccessUrlChange(false);
-        //             getImage(retry);
-        //         }
-        //     })
     }
 
     function checkNewUrl(url: string) {
